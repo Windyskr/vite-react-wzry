@@ -1,17 +1,32 @@
 import { useState, useEffect } from 'react';
 import styles from './HeroPowerModal.module.css';
 
+type PlatformType = 'iqq' | 'iwx' | 'aqq' | 'awx';
+
 interface Props {
     heroName: string;
-    platform: string;
+    platform: PlatformType;
     onClose: () => void;
 }
 
+interface PowerData {
+    name: string;
+    platform: string;
+    area: string;
+    areaPower: string;
+    city: string;
+    cityPower: string;
+    province: string;
+    provincePower: string;
+    guobiao: string;
+    updatetime: string;
+}
+
 export function HeroPowerModal({ heroName, platform, onClose }: Props) {
-    const [powerData, setPowerData] = useState<any>(null);
+    const [powerData, setPowerData] = useState<PowerData | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const platformNames = {
+    const platformNames: Record<PlatformType, string> = {
         iqq: 'iOS QQ',
         iwx: 'iOS 微信',
         aqq: '安卓 QQ',
